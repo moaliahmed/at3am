@@ -1,4 +1,5 @@
 import 'package:at3am/core/assets_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/color_manger.dart';
@@ -14,6 +15,33 @@ class ForgotPasswordView extends StatefulWidget {
 
 class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   TextEditingController emailEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailEditingController.dispose();
+    super.dispose();
+  }
+
+  Future passwordReset() async{
+    try{
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailEditingController.text);
+
+      // temporary show dialog
+      showDialog(context: context, builder: (context){
+        return AlertDialog(content: Text('Password reset link sent! Check your email'));
+      });
+
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
+      // temporary show dialog
+      showDialog(context: context, builder: (context){
+        return AlertDialog(content: Text(e.message.toString()),);
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +99,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               textEditingController: emailEditingController,
                             ),
                           ),
-                          ButtonComponent(title: 'Send', function: () {}),
+                          ButtonComponent(title: 'Send', function: passwordReset),
                         ],
                       ),
                     ),

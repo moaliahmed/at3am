@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../authentication/page/signup_screen.dart';
 import '../authentication/page/splash_screen.dart';
 class AppRoot extends StatelessWidget {
   const AppRoot({super.key});
@@ -7,6 +8,7 @@ class AppRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );
   }

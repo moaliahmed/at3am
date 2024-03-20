@@ -3,7 +3,7 @@ class AppString {
   static const userName='User Name';
   static const email='Email';
   static const password='Password';
-  static const confirmPassword='Confirm Password';
+  static const phoneNumber='Phone Number';
   static const forgotPassword='Forgot Password ';
   static const clickHere= 'Click here';
   static const signIn= 'Sign In';
@@ -14,7 +14,4 @@ class AppString {
   static const orSignInUsingDis= 'By creating an account, you are agree to our Terms';
   static const doHaveAnAccount= 'Do have an account?';
   static const doNotHaveAnAccount= 'Don’t have an account?';
-
-
-
 }
