@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "857783846160",
+    "project_id": "ateam-f4dc7",
+    "storage_bucket": "ateam-f4dc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857783846160:android:c05b2f3054d28129c79195",
+        "android_client_info": {
+          "package_name": "com.example.at3am"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSUffkKY2f0lmqfevsASMtiiPyxaHw6_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

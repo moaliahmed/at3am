@@ -1,10 +1,29 @@
+import 'dart:io';
+
 import 'package:at3am/src/app_root.dart';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'core/bloc_observer/bloc_observer.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform
+  // );
+
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyBSUffkKY2f0lmqfevsASMtiiPyxaHw6_4",
+        appId: "1:857783846160:android:c05b2f3054d28129c79195",
+        messagingSenderId: "857783846160 ",
+        projectId: "ateam-f4dc7"),)
+      : await Firebase.initializeApp();
+
   Bloc.observer= CubitObserver();
   runApp(const AppRoot());
 }
