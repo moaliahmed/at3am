@@ -87,8 +87,8 @@ class AppCubit extends Cubit<AppState> {
   }
 openMap()async{
     String googleUrl='https://www.google.com/maps/search/?api=1&query=$lat,$long';
-await canLaunchUrlString(googleUrl)?
-      await launchUrlString(googleUrl):throw '';
+
+      await launchUrlString(googleUrl);
 
 }
 
