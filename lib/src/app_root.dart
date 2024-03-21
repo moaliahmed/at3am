@@ -1,3 +1,4 @@
+import 'package:at3am/home/page/home_layout.dart';
 import 'package:flutter/material.dart';
 
 import '../authentication/page/signup_screen.dart';
@@ -9,7 +10,7 @@ class AppRoot extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: HomeLayout(),
     );
   }
 }

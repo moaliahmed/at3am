@@ -14,30 +14,26 @@ class RegisterAuthCubit extends Cubit<RegisterAuthState> {
       required String password,
       required String phoneNumber}) {
     emit(RegisterAuthLoadingState());
-    FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password)
+    FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-          print(value.user!.uid);
-          print(value.user! .email);
-          emit(RegisterAuthSucessState());
-    })
-        .catchError((error){
-          emit(RegisterAuthErrorState(error));
-          print('this is error in register cubit ----> ${error.toString()}');
-
+      print(value.user!.uid);
+      print(value.user!.email);
+      emit(RegisterAuthSucessState());
+    }).catchError((error) {
+      emit(RegisterAuthErrorState(error));
+      print('this is error in register cubit ----> ${error.toString()}');
     });
   }
 
   IconData suffix = Icons.visibility_outlined;
   bool isPassword = true;
 
-  void changePasswordVisibility()
-  {
+  void changePasswordVisibility() {
     isPassword = !isPassword;
-    suffix = isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined ;
+    suffix =
+        isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
 
     emit(ChangePasswordVisibilityState());
   }
-
 }
