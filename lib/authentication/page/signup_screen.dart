@@ -1,6 +1,5 @@
 import 'package:at3am/authentication/page/login_screen.dart';
 import 'package:at3am/core/string_manager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

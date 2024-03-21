@@ -10,7 +10,8 @@ class ColorManager {
   // static Color text = const Color(0xff11183C);
   // static Color secondary = const Color(0xff696F8C);
   // static Color primary = const Color(0xff2F66F6);
-   static Color primary = const Color(0xff098C26);
+   static Color white =  Colors.white;
+   static Color primary = const Color(0xff8AC926);
    static Color litePrimary =  Colors.lightGreen;
 
   // static Color orange = const Color(0xffF7931A);
@@ -20,16 +21,16 @@ class ColorManager {
 
 
 // dark
-  static Color darkBackground = const Color(0xff121212);
-  static Color darkSurface = const Color(0xff22283A);
-  static Color darkOtline = const Color(0xff3D455C);
-  static Color dartText = const Color(0xffffffff);
-  static Color dartSecondary = const Color(0xff9096A2);
-  static Color darkPrimary = const Color(0xff436FE2);
-  static Color darkGreen = const Color(0xff31C451);
-  static Color darkOrange = const Color(0xffF89E32);
-  static Color darkRed = const Color(0xffFF6666);
-
+//   static Color darkBackground = const Color(0xff121212);
+//   static Color darkSurface = const Color(0xff22283A);
+//   static Color darkOtline = const Color(0xff3D455C);
+//   static Color dartText = const Color(0xffffffff);
+//   static Color dartSecondary = const Color(0xff9096A2);
+//   static Color darkPrimary = const Color(0xff436FE2);
+//   static Color darkGreen = const Color(0xff31C451);
+//   static Color darkOrange = const Color(0xffF89E32);
+//   static Color darkRed = const Color(0xffFF6666);
+//
 
 
 }

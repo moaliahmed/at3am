@@ -6,4 +6,11 @@ class ImageAssets {
    static const String facebookLogo = '$imagePath/facebook.png';
    static const String xLogo = '$imagePath/x.png';
    static const String googleLogo = '$imagePath/google.png';
+   static const String personImage = '$imagePath/person.png';
+   static const String homeIcon1 = '$imagePath/1.1.png';
+   static const String homeIcon2 = '$imagePath/1.2.png';
+   static const String profileIcon1 = '$imagePath/4.1.png';
+   static const String profileIcon2 = '$imagePath/4.2.png';
+
+
 }
