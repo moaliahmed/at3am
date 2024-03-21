@@ -1,10 +1,11 @@
-import 'package:at3am/home/controller/home_controller/home_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/assets_manager.dart';
 import '../../core/color_manger.dart';
+import '../../core/cubit/app_cubit.dart';
+import '../../core/cubit/app_state.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({super.key});
@@ -13,12 +14,12 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double myWidth = MediaQuery.of(context).size.width;
     double myHeight = MediaQuery.of(context).size.height;
-    return BlocProvider<HomeCubit>(
-      create: (context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
+    return BlocProvider<AppCubit>(
+      create: (context) => AppCubit(),
+      child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var cubit = HomeCubit.get(context);
+          var cubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(),
             body: cubit.screen[cubit.currentScreen],
