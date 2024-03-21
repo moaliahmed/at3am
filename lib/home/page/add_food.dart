@@ -2,22 +2,30 @@ import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/core/color_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:io';
 
+import '../../core/string_manager.dart';
+import '../../home/component/text_form_field_component.dart';
 import '../../core/cubit/app_cubit.dart';
 import '../../core/cubit/app_state.dart';
+import '../component/food_category.dart';
 
 class AddFoodScreen extends StatelessWidget {
-  const AddFoodScreen({super.key});
+  AddFoodScreen({super.key});
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController detailsController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double myWidth = MediaQuery.of(context).size.width;
     double myHeight = MediaQuery.of(context).size.height;
-    return BlocConsumer<AppCubit,AppState>(
-
+    return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        var cubit= AppCubit.get(context);
+        var cubit = AppCubit.get(context)..getCurrentLocation();
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -26,96 +34,161 @@ class AddFoodScreen extends StatelessWidget {
                 color: ColorManager.primary,
               ),
             ),
+            actions: [
+              IconButton(onPressed: ()=>cubit.openMap(), icon: Icon(Icons.location_on_outlined,color: ColorManager.primary,))
+            ],
           ),
-          body: ListView(
-            children: [
-              SizedBox(
-                height: myHeight * .2,
-                child: Row(
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    food_category(
-                      myWidth: myWidth,
-                      title: 'Grocery',
-                      index: 0,
-                      image: ImageAssets.vectorIcon,
-                      currentIndex: cubit.foodCategoryIndex,
+                    InkWell(
+                      onTap: () => cubit.changeFoodCategory('Grocery'),
+                      child: FoodCategory(
+                        myWidth: myWidth,
+                        title: 'Grocery',
+                        index: 'Grocery',
+                        image: ImageAssets.vectorIcon,
+                        currentIndex: cubit.foodCategory,
+                      ),
                     ),
-                    food_category(
-                      myWidth: myWidth,
-                      title: 'Prepared Food',
-                      index: 1,
-                      image: ImageAssets.hotPotIcon,
-                      currentIndex: cubit.foodCategoryIndex,
+                    InkWell(
+                      onTap: () => cubit.changeFoodCategory('Prepared Food'),
+                      child: FoodCategory(
+                        myWidth: myWidth,
+                        title: 'Prepared Food',
+                        index: 'Prepared Food',
+                        image: ImageAssets.hotPotIcon,
+                        currentIndex: cubit.foodCategory,
+                      ),
                     ),
-                    food_category(
-                      myWidth: myWidth,
-                      title: 'Fruits',
-                      index: 2,
-                      image: ImageAssets.appleIcon,
-                      currentIndex: cubit.foodCategoryIndex,
+                    InkWell(
+                      onTap: () => cubit.changeFoodCategory('Fruits'),
+                      child: FoodCategory(
+                        myWidth: myWidth,
+                        title: 'Fruits',
+                        index: 'Fruits',
+                        image: ImageAssets.appleIcon,
+                        currentIndex: cubit.foodCategory,
+                      ),
                     ),
-                    food_category(
-                      myWidth: myWidth,
-                      title: 'Beverages',
-                      index: 3,
-                      image: ImageAssets.sodaIcon,
-                      currentIndex: cubit.foodCategoryIndex,
+                    InkWell(
+                      onTap: () => cubit.changeFoodCategory('Beverages'),
+                      child: FoodCategory(
+                        myWidth: myWidth,
+                        title: 'Beverages',
+                        index: 'Beverages',
+                        image: ImageAssets.sodaIcon,
+                        currentIndex: cubit.foodCategory,
+                      ),
                     ),
                   ],
                 ),
-              )
-            ],
+                SizedBox(height: myHeight * .03),
+                TextFormFieldComponent(
+                  title: 'Food Title',
+                  icons: Icons.fastfood_outlined,
+                  textEditingController: titleController,
+                ),
+                TextFormFieldComponent(
+                  title: 'Food details',
+                  icons: Icons.more_horiz_sharp,
+                  textEditingController: detailsController,
+                ),
+                TextFormFieldComponent(
+                  title: 'Address',
+                  icons: Icons.home_outlined,
+                  textEditingController: addressController,
+                ),
+                SizedBox(height: myHeight * .03),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Quantity : ${cubit.quantity}',
+                        style: TextStyle(
+                            color: ColorManager.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                Slider(
+                  activeColor: ColorManager.primary,
+                  thumbColor: ColorManager.primary,
+                  min: 1,
+                  max: 12,
+                  value: cubit.quantity.toDouble(),
+                  onChanged: (value) =>
+                      cubit.changeQuantitySlider(value.toInt()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'min:1',
+                        style: TextStyle(color: ColorManager.grey),
+                      ),
+                      Text('max:12',
+                          style: TextStyle(color: ColorManager.grey)),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    cubit.photo == null
+                        ? InkWell(
+                            onTap: () => cubit.getImage(),
+                            child: Container(
+                              margin: EdgeInsets.all(8),
+                              height: myHeight * .1,
+                              width: myWidth * .25,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(18),
+                                  color: ColorManager.lightGrey),
+                              child: Icon(Icons.add),
+                            ),
+                          )
+                        : Row(
+                          children: [
+                            Container(
+                                margin: EdgeInsets.all(8),
+                                height: myHeight * .1,
+                                width: myWidth * .25,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18),
+                                    color: ColorManager.lightGrey,
+                                    image: DecorationImage(
+                                        image: FileImage(cubit.photo!))),
+                              ),
+                            IconButton(onPressed: () =>cubit.deleteImage() , icon: Icon(Icons.delete,color: ColorManager.red,))
+                          ],
+                        ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(ColorManager.primary)),
+                  child: Text(
+                    AppString.ok,
+                    style: TextStyle(fontSize: 18, color: ColorManager.white),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
-    );
-  }
-}
-
-class food_category extends StatelessWidget {
-  const food_category({
-    super.key,
-    required this.myWidth,
-    required this.image,
-    required this.title,
-    required this.index,
-    required this.currentIndex,
-  });
-
-  final double myWidth;
-  final String image;
-  final String title;
-  final int index;
-  final int currentIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          width: myWidth * .15,
-          height: myWidth * .15,
-          decoration: BoxDecoration(
-              color: index == currentIndex
-                  ? ColorManager.primary
-                  : ColorManager.lightGrey,
-              borderRadius: BorderRadius.circular(12)),
-          child: Image.asset(
-            image,
-            color:
-                index == currentIndex ? ColorManager.white : ColorManager.grey,
-          ),
-        ),
-        Text(
-          title,
-          style: index == currentIndex
-              ? TextStyle(
-                  color: ColorManager.black, fontWeight: FontWeight.bold)
-              : TextStyle(color: ColorManager.grey),
-        )
-      ],
     );
   }
 }
