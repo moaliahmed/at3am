@@ -11,6 +11,7 @@ class AppCubit extends Cubit<AppState> {
 
   static AppCubit get(context) => BlocProvider.of(context);
   int currentScreen = 0;
+  int foodCategoryIndex=1;
   List<Widget> screen = [
     HomeScreen(),
     ProfileScreen(),

@@ -13,10 +13,12 @@ class ColorManager {
    static Color white =  Colors.white;
    static Color primary = const Color(0xff8AC926);
    static Color litePrimary =  Colors.lightGreen;
+   static Color black =const  Color(0xff323232);
 
   // static Color orange = const Color(0xffF7931A);
   // static Color red = const Color(0xffCD0000);
    static Color grey= Colors.grey;
+   static Color lightGrey=const Color(0xffF4F1F1);
   // static Color white = const Color(0xffffffff);
 
 
