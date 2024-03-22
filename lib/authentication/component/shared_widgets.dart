@@ -1,45 +1,9 @@
-import 'package:at3am/core/assets_manager.dart';
-import 'package:at3am/core/color_manger.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import '../../core/assets_manager.dart';
+import '../../core/color_manger.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          //Search bar 
-          Container(
-            height: 60.0,
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Search',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25.0)
-                ),
-                prefixIcon: Icon(Icons.search),
-              ),
-            ),
-          ),
-          listCard(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: ColorManager.white,
-        ),
-        backgroundColor: ColorManager.primary,
-      ),
-    );
-  }
-}
-
-// Card List view Widget
+// Food Items Card
 Widget listCard(){
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -74,8 +38,8 @@ Widget listCard(){
                   Text(
                     'Meal',
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                         fontSize: 25.0
                     ),
                   ),
@@ -113,8 +77,6 @@ Widget listCard(){
                       ),
                     ],
                   )
-
-
                 ],
               ),
             )
