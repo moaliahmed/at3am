@@ -15,7 +15,7 @@ class AppRoot extends StatelessWidget {
       create: (context) => AppCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeLayout(),
+        home: SplashScreen(),
       ),
     );
   }

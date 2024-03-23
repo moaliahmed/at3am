@@ -28,7 +28,15 @@ class SignUpScreen extends StatelessWidget {
       BlocProvider(
       create: (BuildContext context) => RegisterAuthCubit(),
       child: BlocConsumer<RegisterAuthCubit, RegisterAuthState>(
-        listener: (context, state){},
+        listener: (context, state){
+          if( state is CreateAuthSucessState){
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ));
+          }
+        },
         builder: (context, state){
           return Scaffold(
             body: SizedBox(
@@ -148,7 +156,7 @@ class SignUpScreen extends StatelessWidget {
                                         ));
                                   },
                                   child: Text(
-                                    AppString.signIn,
+                                    AppString.signUp,
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: ColorManager.litePrimary,
