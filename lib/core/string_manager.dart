@@ -14,4 +14,5 @@ class AppString {
   static const orSignInUsingDis= 'By creating an account, you are agree to our Terms';
   static const doHaveAnAccount= 'Do have an account?';
   static const doNotHaveAnAccount= 'Don’t have an account?';
+  static const ok= 'OK';
 }

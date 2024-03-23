@@ -14,141 +14,138 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double myWidth = MediaQuery.of(context).size.width;
     double myHeight = MediaQuery.of(context).size.height;
-    return BlocProvider<AppCubit>(
-      create: (context) => AppCubit(),
-      child: BlocConsumer<AppCubit, AppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = AppCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(),
-            body: cubit.screen[cubit.currentScreen],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: cubit.currentScreen,
-              onTap: (value) => cubit.changeScreen(value),
-              items: [
-                BottomNavigationBarItem(
-                  label: '',
-                  icon: Image.asset(
-                    ImageAssets.homeIcon1,
-                    height: myHeight * .035,
-                    color: ColorManager.grey,
-                  ),
-                  activeIcon: Image.asset(
-                    ImageAssets.homeIcon2,
-                    height: myHeight * .035,
+    return BlocConsumer<AppCubit, AppState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = AppCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(),
+          body: cubit.screen[cubit.currentScreen],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: cubit.currentScreen,
+            onTap: (value) => cubit.changeScreen(value),
+            items: [
+              BottomNavigationBarItem(
+                label: '',
+                icon: Image.asset(
+                  ImageAssets.homeIcon1,
+                  height: myHeight * .035,
+                  color: ColorManager.grey,
+                ),
+                activeIcon: Image.asset(
+                  ImageAssets.homeIcon2,
+                  height: myHeight * .035,
+                  color: ColorManager.primary,
+                ),
+              ),
+              BottomNavigationBarItem(
+                label: '',
+                icon: Image.asset(
+                  ImageAssets.profileIcon1,
+                  height: myHeight * .035,
+                  color: ColorManager.grey,
+                ),
+                activeIcon: Image.asset(
+                  ImageAssets.profileIcon2,
+                  height: myHeight * .035,
+                  color: ColorManager.primary,
+                ),
+              ),
+            ],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
                     color: ColorManager.primary,
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: CircleAvatar(
+                          child: Image.asset(ImageAssets.personImage),
+                          radius: 40,
+                        ),
+                      ),
+                      Text(
+                        'mohamed ali',
+                        style: TextStyle(
+                            color: ColorManager.white, fontSize: 23),
+                      )
+                    ],
                   ),
                 ),
-                BottomNavigationBarItem(
-                  label: '',
-                  icon: Image.asset(
-                    ImageAssets.profileIcon1,
-                    height: myHeight * .035,
-                    color: ColorManager.grey,
+                SizedBox(
+                  height: myHeight * .03,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.home,
+                      color: ColorManager.primary,
+                    ),
+                    title: Text(
+                      'home',
+                      style: TextStyle(
+                          color: ColorManager.primary, fontSize: 22),
+                    ),
                   ),
-                  activeIcon: Image.asset(
-                    ImageAssets.profileIcon2,
-                    height: myHeight * .035,
-                    color: ColorManager.primary,
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.language,
+                      //  color: ColorManager.primary,
+                    ),
+                    title: Text(
+                      'Language',
+                      style: TextStyle(
+                        fontSize: 22,
+                        //    color: ColorManager.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.info_outline,
+                      // color: ColorManager.primary,
+                    ),
+                    title: Text(
+                      'About',
+                      style: TextStyle(
+                        fontSize: 22,
+                        //color: ColorManager.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.logout_outlined,
+                      // color: ColorManager.primary,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: TextStyle(
+                        fontSize: 22,
+                        //color: ColorManager.primary,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            drawer: Drawer(
-              child: ListView(
-                children: [
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: ColorManager.primary,
-                    ),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: CircleAvatar(
-                            child: Image.asset(ImageAssets.personImage),
-                            radius: 40,
-                          ),
-                        ),
-                        Text(
-                          'mohamed ali',
-                          style: TextStyle(
-                              color: ColorManager.white, fontSize: 23),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: myHeight * .03,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.home,
-                        color: ColorManager.primary,
-                      ),
-                      title: Text(
-                        'home',
-                        style: TextStyle(
-                            color: ColorManager.primary, fontSize: 22),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.language,
-                        //  color: ColorManager.primary,
-                      ),
-                      title: Text(
-                        'Language',
-                        style: TextStyle(
-                          fontSize: 22,
-                          //    color: ColorManager.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.info_outline,
-                        // color: ColorManager.primary,
-                      ),
-                      title: Text(
-                        'About',
-                        style: TextStyle(
-                          fontSize: 22,
-                          //color: ColorManager.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.logout_outlined,
-                        // color: ColorManager.primary,
-                      ),
-                      title: Text(
-                        'Logout',
-                        style: TextStyle(
-                          fontSize: 22,
-                          //color: ColorManager.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
