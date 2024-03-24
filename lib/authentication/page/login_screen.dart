@@ -1,4 +1,5 @@
 import 'package:at3am/authentication/page/signup_screen.dart';
+import 'package:at3am/cashe_helper.dart';
 import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/core/string_manager.dart';
 import 'package:flutter/material.dart';
@@ -25,15 +26,22 @@ class LoginScreen extends StatelessWidget{
       child: BlocConsumer<LoginAuthCubit, LoginAuthState>(
           listener: (context, state){
             if (state is LoginAuthSucessState){
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomeLayout(),
-                ),
-                    (route) {
-                  return false;
-                },
-              );
+
+              //save uId
+              CacheHelper.saveData(key: 'uId', value: state.uId)
+                  .then((value){
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeLayout(),
+                  ),
+                      (route) {
+                    return false;
+                  },
+                );
+                  }) .catchError((error){
+                    print('this print in login screen and hapen in cahe helper saveData');
+              });
             }
           },
           builder: (context, state){

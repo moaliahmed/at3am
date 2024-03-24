@@ -6,7 +6,10 @@ class LoginAuthInitialState extends LoginAuthState {}
 
 class LoginAuthLoadingState extends LoginAuthState {}
 
-class LoginAuthSucessState extends LoginAuthState {}
+class LoginAuthSucessState extends LoginAuthState {
+  String uId;
+  LoginAuthSucessState({required this.uId});
+}
 
 class LoginAuthErrorState extends LoginAuthState {
   final String error;

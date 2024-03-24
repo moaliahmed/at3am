@@ -1,12 +1,14 @@
 import 'dart:io';
 
+import 'package:at3am/authentication/page/splash_screen.dart';
+import 'package:at3am/home/page/home_layout.dart';
 import 'package:at3am/src/app_root.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'cashe_helper.dart';
 import 'core/bloc_observer/bloc_observer.dart';
-import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,18 @@ void main() async{
       : await Firebase.initializeApp();
 
   Bloc.observer= CubitObserver();
-  runApp(const AppRoot());
+
+  await CacheHelper.init();
+  var uId = CacheHelper.getData(key: 'uId');
+
+  Widget widget;
+
+  if(uId != null){
+    widget = HomeLayout();
+  } else {
+    widget = SplashScreen();
+  }
+
+  runApp(AppRoot(startWidget: widget,));
 }
 

@@ -25,7 +25,6 @@ class RegisterAuthCubit extends Cubit<RegisterAuthState> {
         email: email,
         phoneNumber: phoneNumber,
         name: name);
-      emit(RegisterAuthSucessState());
     }).catchError((error) {
       emit(RegisterAuthErrorState(error));
       print('this is error in register cubit ----> ${error.toString()}');

@@ -7,7 +7,9 @@ import '../authentication/page/signup_screen.dart';
 import '../authentication/page/splash_screen.dart';
 
 class AppRoot extends StatelessWidget {
-  const AppRoot({super.key});
+  Widget startWidget;
+  AppRoot({required this.startWidget});
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class AppRoot extends StatelessWidget {
       create: (context) => AppCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: startWidget,
       ),
     );
   }
