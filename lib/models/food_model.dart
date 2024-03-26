@@ -1,15 +1,17 @@
 class FoodModel{
-  String? foodId;
+  String? donerName;
+  String? donerId;
   String? foodTitle;
   String? foodDetails;
   String? foodCategory;
   String? foodAddress;
-  String? foodQuantity;
+  int? foodQuantity;
   String? foodTime;
   String? foodImage;
 
   FoodModel({
-    required this.foodId,
+    required this.donerName,
+    required this.donerId,
     required this.foodTitle,
     required this.foodDetails,
     required this.foodAddress,
@@ -20,7 +22,8 @@ class FoodModel{
   });
 
   FoodModel.fromJson(Map<String, dynamic> json){
-    foodId = json['foodId'];
+    donerId = json['donerId'];
+    donerName = json['donerName'];
     foodTitle = json['foodTitle'];
     foodDetails = json['foodDetails'];
     foodAddress = json['foodAddress'];
@@ -32,7 +35,8 @@ class FoodModel{
 
   Map<String, dynamic> toMap(){
     return {
-      'foodId' : foodId,
+      'donerName': donerName,
+      'donerId': donerId,
       'foodTitle': foodTitle,
       'foodDetails': foodDetails,
       'foodAddress': foodAddress,
@@ -42,5 +46,4 @@ class FoodModel{
       'foodImage': foodImage,
     };
   }
-
 }

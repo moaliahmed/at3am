@@ -20,9 +20,9 @@ Widget listCard(){
                 height: 100.0,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(ImageAssets.personImage),
+                        image: AssetImage(ImageAssets.mealPhoto),
                         fit: BoxFit.cover),
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(45.0)),
                     boxShadow: [
                       BoxShadow(blurRadius: 7.0, color: Colors.black)
                     ]
@@ -68,7 +68,7 @@ Widget listCard(){
                       ),
                       SizedBox(width: 20.0,),
                       Text(
-                        '16 October, 2021',
+                        '25 March, 2024',
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
                             color: ColorManager.primary,

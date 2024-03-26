@@ -69,7 +69,7 @@ class HomeLayout extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'mohamed ali',
+                        '${AppCubit.get(context).userModel?.name}',
                         style: TextStyle(
                             color: ColorManager.white, fontSize: 23),
                       )

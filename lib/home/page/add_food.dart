@@ -2,7 +2,6 @@ import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/core/color_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
 import '../../core/string_manager.dart';
 import '../../home/component/text_form_field_component.dart';
@@ -144,7 +143,7 @@ class AddFoodScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    cubit.photo == null
+                    cubit.foodImage == null
                         ? InkWell(
                             onTap: () => cubit.getImage(),
                             child: Container(
@@ -167,7 +166,7 @@ class AddFoodScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(18),
                                     color: ColorManager.lightGrey,
                                     image: DecorationImage(
-                                        image: FileImage(cubit.photo!))),
+                                        image: FileImage(cubit.foodImage!))),
                               ),
                             IconButton(onPressed: () =>cubit.deleteImage() , icon: Icon(Icons.delete,color: ColorManager.red,))
                           ],
@@ -175,7 +174,12 @@ class AddFoodScreen extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppCubit.get(context).uploadPostImage(
+                        foodTitle: titleController.text,
+                        foodDetails: detailsController.text,
+                        foodAddress: addressController.text);
+                  },
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(ColorManager.primary)),

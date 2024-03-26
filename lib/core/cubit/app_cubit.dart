@@ -4,6 +4,8 @@ import 'package:at3am/core/cubit/app_state.dart';
 import 'package:at3am/home/page/home_screen.dart';
 import 'package:at3am/home/page/profile_screen.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
 
@@ -11,8 +13,12 @@ import 'dart:typed_data';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../cashe_helper.dart';
+import '../../models/food_model.dart';
+import '../../models/user_model.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
@@ -21,7 +27,7 @@ class AppCubit extends Cubit<AppState> {
   int currentScreen = 0;
   int quantity = 6;
   String foodCategory = 'Grocery';
-  File? photo;
+  File? foodImage;
   double? lat;
   double? long;
   List<Widget> screen = [
@@ -49,13 +55,13 @@ class AppCubit extends Cubit<AppState> {
         .pickImage(source: ImageSource.camera)
         .then((value) {
      if (value!=null){
-       photo=File(value.path);
+       foodImage=File(value.path);
        emit(PhotoLoadedState());
      }
     });
   }
   deleteImage(){
-    photo=null;
+    foodImage=null;
     emit(DeleteImageState());
   }
   Future<Uint8List> getImageBytes(XFile image) async {
@@ -92,7 +98,98 @@ openMap()async{
 
 }
 
+// Get User Data from Firebase Firestore
+  UserModel? userModel;
+  var uId = CacheHelper.getData(key: 'uId');
 
+  // Upload Date
+  final DateTime now = DateTime.now();
+  final DateFormat formatter = DateFormat("dd MMMM yyyy");
+
+  void getUserData()
+  {
+    emit(GetUserDataLoadingState());
+    FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
+      userModel = UserModel.fromJson(value.data()!);
+      emit(GetUserDataSuccessState(userModel: userModel!));
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetUserDataErrorState(error: error.toString()));
+    });
+  }
+
+  // Upload Image in Firebase Database
+
+  void uploadPostImage({
+    // required String dateTime,
+    required String foodTitle,
+    required String foodDetails,
+    required String foodAddress,
+  })
+  {
+    emit(CreateFoodLoadingState());
+
+    firebase_storage.FirebaseStorage.instance
+        .ref()
+        .child('foods/${Uri.file(foodImage!.path).pathSegments.last}')
+        .putFile(foodImage!)
+        .then((value) {
+      value.ref.getDownloadURL().then((value)
+      {
+        print(value);
+        createPost(
+            // dateTime: dateTime,
+            foodTitle: foodTitle,
+            foodDetails: foodDetails,
+            foodAddress: foodAddress,
+            postImage: value
+        );
+      }).catchError((error)
+      {
+        emit(CreateFoodErrorState(error: error.toString()));
+      });
+    }).catchError((error)
+    {
+      emit(CreateFoodErrorState(error: error.toString()));
+    });
+  }
+
+  //Create A Food Post
+
+  void createPost({
+    // required String dateTime,
+    required String foodTitle,
+    required String foodDetails,
+    required String foodAddress,
+    required String postImage,
+  })
+  {
+    emit(CreateFoodLoadingState());
+
+    FoodModel foodModel = FoodModel(
+        donerName: 'bishoy alper',
+        donerId: userModel?.uId,
+        foodTitle: foodTitle,
+        foodDetails: foodDetails,
+        foodAddress: foodAddress,
+        foodCategory: foodCategory,
+        foodQuantity: quantity,
+        foodTime: formatter.format(now),
+        foodImage: postImage
+    );
+
+    FirebaseFirestore.instance
+        .collection('foods')
+        .add(foodModel.toMap())
+        .then((value)
+    {
+      emit(CreateFoodSuccessState());
+    })
+        .catchError((error)
+    {
+      emit(CreateFoodErrorState(error: error.toString()));
+    });
+  }
 
 }
 //https://www.google.com/maps/search/?api=1&query=30.2466921,31.3102143
