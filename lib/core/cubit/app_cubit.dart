@@ -191,5 +191,19 @@ openMap()async{
     });
   }
 
+  List<FoodModel> foods = [];
+
+  void getFoods(){
+    FirebaseFirestore.instance.collection('foods').get().then((value){
+      value.docs.forEach((element) {
+        foods.add(FoodModel.fromJson(element.data()));
+      });
+      print(foods);
+      emit(GetFoodSuccessState());
+    }).catchError((error){
+      emit(GetFoodErrorState(error: error.toString()));
+    });
+  }
+
 }
 //https://www.google.com/maps/search/?api=1&query=30.2466921,31.3102143

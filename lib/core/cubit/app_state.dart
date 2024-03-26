@@ -34,3 +34,12 @@ final class CreateFoodErrorState extends AppState {
   final String? error;
   CreateFoodErrorState({this.error});
 }
+
+final class GetFoodLoadingState extends AppState {}
+
+final class GetFoodSuccessState extends AppState {}
+
+final class GetFoodErrorState extends AppState {
+final String? error;
+GetFoodErrorState({this.error});
+}

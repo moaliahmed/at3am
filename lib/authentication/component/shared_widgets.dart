@@ -1,10 +1,13 @@
+import 'package:at3am/models/food_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/assets_manager.dart';
 import '../../core/color_manger.dart';
 
 // Food Items Card
-Widget listCard(){
+
+
+Widget listCard(FoodModel foodModel){
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Container(
@@ -20,7 +23,7 @@ Widget listCard(){
                 height: 100.0,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(ImageAssets.mealPhoto),
+                        image: NetworkImage(foodModel.foodImage!),
                         fit: BoxFit.cover),
                     borderRadius: BorderRadius.all(Radius.circular(45.0)),
                     boxShadow: [
@@ -36,7 +39,7 @@ Widget listCard(){
                 children: [
                   //Meal Title
                   Text(
-                    'Meal',
+                    '${foodModel.foodTitle}',
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.black,
@@ -46,7 +49,7 @@ Widget listCard(){
 
                   //category prebaard
                   Text(
-                    'Category: prapred foor',
+                    '${foodModel.foodDetails}',
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey,
@@ -59,7 +62,7 @@ Widget listCard(){
                   Row(
                     children: [
                       Text(
-                        'Bishoy Alper',
+                        '${foodModel.donerName}',
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
                             color: Colors.black,
@@ -68,7 +71,7 @@ Widget listCard(){
                       ),
                       SizedBox(width: 20.0,),
                       Text(
-                        '25 March, 2024',
+                        '${foodModel.foodTime}',
                         style: TextStyle(
                             fontWeight: FontWeight.w800,
                             color: ColorManager.primary,
