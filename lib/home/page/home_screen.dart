@@ -1,6 +1,7 @@
 import 'package:at3am/core/color_manger.dart';
 import 'package:at3am/core/cubit/app_cubit.dart';
 import 'package:at3am/core/cubit/app_state.dart';
+import 'package:at3am/home/page/request_food.dart';
 import 'package:at3am/models/food_model.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,12 +42,19 @@ class HomeScreen extends StatelessWidget {
                 FirebaseAnimatedList(
                   physics: NeverScrollableScrollPhysics(),
                     query: AppCubit.get(context).dbRef!,
-                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, snapshot, animation, index){
                       Map foodData = snapshot.value as Map;
                       FoodModel foodModel = FoodModel.fromJson(foodData);
-                      return listCard(foodModel);
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                RequestFoodScreen(foodModel: foodModel)
+                          ));
+                        },
+                          child: listCard(foodModel)
+                      );
                     }
                 ),
 
@@ -60,8 +68,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-
-
 
           floatingActionButton: FloatingActionButton(
             onPressed: () {
