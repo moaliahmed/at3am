@@ -1,4 +1,5 @@
 import 'package:at3am/core/cubit/app_cubit.dart';
+import 'package:at3am/core/cubit/app_state.dart';
 import 'package:at3am/home/page/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,15 +9,17 @@ import '../authentication/page/splash_screen.dart';
 import '../home/page/food_taken.dart';
 
 class AppRoot extends StatelessWidget {
-  const AppRoot({super.key});
+  Widget startWidget;
+  AppRoot({required this.startWidget});
+
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(),
+      create: (context) => AppCubit()..getUserData()..dbRef,
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: HomeLayout(),
+      debugShowCheckedModeBanner: false,
+      home: startWidget,
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'package:at3am/authentication/page/signup_screen.dart';
+import 'package:at3am/cashe_helper.dart';
 import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/core/string_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/color_manger.dart';
+import '../../home/page/home_layout.dart';
 import '../component/button_component.dart';
 import '../component/text_form_field_component.dart';
 import '../controller/login_cubit/login_auth_cubit.dart';
@@ -23,7 +25,24 @@ class LoginScreen extends StatelessWidget{
       create: (BuildContext context) => LoginAuthCubit(),
       child: BlocConsumer<LoginAuthCubit, LoginAuthState>(
           listener: (context, state){
+            if (state is LoginAuthSucessState){
 
+              //save uId
+              CacheHelper.saveData(key: 'uId', value: state.uId)
+                  .then((value){
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeLayout(),
+                  ),
+                      (route) {
+                    return false;
+                  },
+                );
+                  }) .catchError((error){
+                    print('this print in login screen and hapen in cahe helper saveData');
+              });
+            }
           },
           builder: (context, state){
             return Scaffold(

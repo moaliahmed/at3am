@@ -13,3 +13,13 @@ RegisterAuthErrorState(this.error);
 
 class ChangePasswordVisibilityState extends RegisterAuthState {}
 
+//create a user
+class CreateAuthLoadingState extends RegisterAuthState {}
+
+class CreateAuthSucessState extends RegisterAuthState {}
+
+class CreateAuthErrorState extends RegisterAuthState {
+  final String error;
+  CreateAuthErrorState(this.error);
+}
+

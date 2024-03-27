@@ -17,7 +17,7 @@ class LoginAuthCubit extends Cubit<LoginAuthState> {
           print('Welcome We are succect in login');
           print('${value.user!.email}');
           print('${value.user!.uid}');
-          emit(LoginAuthSucessState());
+          emit(LoginAuthSucessState(uId: value.user!.uid));
     })
         .catchError((error) {
       print('error in login auth cubit ----> ${error}');
