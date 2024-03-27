@@ -21,7 +21,7 @@ class FoodModel{
     required this.foodImage
   });
 
-  FoodModel.fromJson(Map<String, dynamic> json){
+  FoodModel.fromJson(Map<dynamic, dynamic> json){
     donerId = json['donerId'];
     donerName = json['donerName'];
     foodTitle = json['foodTitle'];

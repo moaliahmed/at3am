@@ -5,6 +5,7 @@ import 'package:at3am/home/page/home_screen.dart';
 import 'package:at3am/home/page/profile_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker_platform_interface/image_picker_platform_interface.dart';
@@ -154,7 +155,9 @@ openMap()async{
     });
   }
 
-  //Create A Food Post
+  //Create A Food Post if realtime database
+
+  DatabaseReference? dbRef = FirebaseDatabase.instance.ref().child('foods');
 
   void createPost({
     // required String dateTime,
@@ -167,7 +170,7 @@ openMap()async{
     emit(CreateFoodLoadingState());
 
     FoodModel foodModel = FoodModel(
-        donerName: 'bishoy alper',
+        donerName: userModel?.name,
         donerId: userModel?.uId,
         foodTitle: foodTitle,
         foodDetails: foodDetails,
@@ -177,33 +180,40 @@ openMap()async{
         foodTime: formatter.format(now),
         foodImage: postImage
     );
-
-    FirebaseFirestore.instance
-        .collection('foods')
-        .add(foodModel.toMap())
-        .then((value)
-    {
+    dbRef!.push().set(foodModel.toMap()).then((value){
       emit(CreateFoodSuccessState());
-    })
-        .catchError((error)
-    {
+    }).catchError((error){
       emit(CreateFoodErrorState(error: error.toString()));
     });
+
+    // Adding food usng firestore database
+
+    // FirebaseFirestore.instance
+    //     .collection('foods')
+    //     .add(foodModel.toMap())
+    //     .then((value)
+    // {
+    //   emit(CreateFoodSuccessState());
+    // })
+    //     .catchError((error)
+    // {
+    //   emit(CreateFoodErrorState(error: error.toString()));
+    // });
   }
 
   List<FoodModel> foods = [];
 
-  void getFoods(){
-    FirebaseFirestore.instance.collection('foods').get().then((value){
-      value.docs.forEach((element) {
-        foods.add(FoodModel.fromJson(element.data()));
-      });
-      print(foods);
-      emit(GetFoodSuccessState());
-    }).catchError((error){
-      emit(GetFoodErrorState(error: error.toString()));
-    });
-  }
+  // void getFoods(){
+  //   FirebaseFirestore.instance.collection('foods').get().then((value){
+  //     value.docs.forEach((element) {
+  //       foods.add(FoodModel.fromJson(element.data()));
+  //     });
+  //     print(foods);
+  //     emit(GetFoodSuccessState());
+  //   }).catchError((error){
+  //     emit(GetFoodErrorState(error: error.toString()));
+  //   });
+  // }
 
 }
 //https://www.google.com/maps/search/?api=1&query=30.2466921,31.3102143

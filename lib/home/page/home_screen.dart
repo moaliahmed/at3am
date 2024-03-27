@@ -1,6 +1,8 @@
 import 'package:at3am/core/color_manger.dart';
 import 'package:at3am/core/cubit/app_cubit.dart';
 import 'package:at3am/core/cubit/app_state.dart';
+import 'package:at3am/models/food_model.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,15 +37,31 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 // Building Card List
-                ListView.separated(
+
+                FirebaseAnimatedList(
+                    query: AppCubit.get(context).dbRef!,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => listCard(AppCubit.get(context).foods[index]),
-                    separatorBuilder:(context, index) => SizedBox(height: 5.0,),
-                    itemCount: AppCubit.get(context).foods.length)
+                    itemBuilder: (context, snapshot, animation, index){
+                      Map foodData = snapshot.value as Map;
+                      FoodModel foodModel = FoodModel.fromJson(foodData);
+                      return listCard(foodModel);
+                    }
+                ),
+
+
+                //lisView get by firesotre database
+                // ListView.separated(
+                //     shrinkWrap: true,
+                //     physics: NeverScrollableScrollPhysics(),
+                //     itemBuilder: (context, index) => listCard(AppCubit.get(context).foods[index]),
+                //     separatorBuilder:(context, index) => SizedBox(height: 5.0,),
+                //     itemCount: AppCubit.get(context).foods.length)
               ],
             ),
           ),
+
+
+
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(

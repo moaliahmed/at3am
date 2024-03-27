@@ -15,7 +15,7 @@ class AppRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()..getUserData()..getFoods(),
+      create: (context) => AppCubit()..getUserData()..dbRef,
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: startWidget,
