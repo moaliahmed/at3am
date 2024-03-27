@@ -14,9 +14,12 @@ class AppString {
   static const orSignInUsingDis= 'By creating an account, you are agree to our Terms';
   static const doHaveAnAccount= 'Do have an account?';
   static const doNotHaveAnAccount= 'Don’t have an account?';
-  static const ok= 'OK';
+  static const ok = 'OK';
   static const profileName= 'mohamed ali';
   static const cancelRequest= 'Cancel Request';
+  static const chatRequest= 'Chat';
+  static const request= 'Request Food';
+  static const goHomeRequest = 'Home';
   static const foodTaken= 'Food Taken';
 
 }

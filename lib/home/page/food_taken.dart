@@ -1,10 +1,14 @@
 import 'package:at3am/core/assets_manager.dart';
+import 'package:at3am/home/page/home_layout.dart';
+import 'package:at3am/home/page/home_screen.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/color_manger.dart';
 import '../../core/string_manager.dart';
+import '../../models/food_model.dart';
+
 class FoodTaken extends StatelessWidget {
-  const FoodTaken({super.key});
+  FoodModel? foodModel;
+  FoodTaken({required this.foodModel});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class FoodTaken extends StatelessWidget {
           children: [
             Container(
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(ImageAssets.foodBackground),fit: BoxFit.fill),
+                  image: DecorationImage(image: NetworkImage(foodModel!.foodImage!),fit: BoxFit.fill),
                   borderRadius: BorderRadius.circular(19),
                   color: Colors.black
                 ),
@@ -36,7 +40,7 @@ class FoodTaken extends StatelessWidget {
                 border: Border.all()
               ),child: ListTile(
               leading: Icon(Icons.person_outline_rounded),
-              title: Text('Mohamed ali'),
+              title: Text('${foodModel!.donerName}'),
             ),
             ),
             Container(
@@ -48,7 +52,7 @@ class FoodTaken extends StatelessWidget {
                 border: Border.all()
               ),child: ListTile(
               leading: Icon(Icons.phone_outlined),
-              title: Text('0123456789'),
+              title: Text('${foodModel!.donerPhone}'),
             ),
             ),
             Container(
@@ -65,14 +69,13 @@ class FoodTaken extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical:  myHeight*.01),
-
               width: myWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all()
               ),child: ListTile(
               leading: Icon(Icons.home_outlined),
-              title: Text('4 El-mehata street - El-zohor village'),
+              title: Text('${foodModel!.foodAddress}'),
             ),
             ),
             SizedBox(height: myHeight*.03),
@@ -86,18 +89,36 @@ class FoodTaken extends StatelessWidget {
                 style: TextStyle(fontSize: 18, color: ColorManager.white),
               ),
             ),
-            SizedBox(height: myHeight*.01),
-            ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStateProperty.all(ColorManager.primary)),
-              child: Text(
-                AppString.cancelRequest,
-                style: TextStyle(fontSize: 18, color: ColorManager.white),
-              ),
+            SizedBox(height: myHeight*.03),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    AppString.cancelRequest,
+                    style: TextStyle(fontSize: 18, color: ColorManager.primary),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeLayout(),
+                      ),
+                          (route) {
+                        return false;
+                      },
+                    );
+                  },
+                  child: Text(
+                    AppString.goHomeRequest,
+                    style: TextStyle(fontSize: 18, color: ColorManager.primary),
+                  ),
+                ),
+              ],
             ),
-
           ],
         ),
       ),

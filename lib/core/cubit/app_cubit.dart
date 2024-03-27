@@ -195,6 +195,7 @@ openMap()async{
     FoodModel foodModel = FoodModel(
         donerName: userModel?.name,
         donerId: userModel?.uId,
+        donerPhone: userModel?.phone,
         foodTitle: foodTitle,
         foodDetails: foodDetails,
         foodAddress: foodAddress,
