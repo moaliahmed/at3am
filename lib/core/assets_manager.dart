@@ -16,6 +16,7 @@ class ImageAssets {
    static const String hotPotIcon = '$imagePath/hot-pot1.png';
    static const String sodaIcon = '$imagePath/soda1.png';
    static const String vectorIcon = '$imagePath/vector1.png';
+   static const String foodBackground = '$imagePath/foodBackground.jpeg';
 
 
 }

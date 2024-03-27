@@ -15,4 +15,8 @@ class AppString {
   static const doHaveAnAccount= 'Do have an account?';
   static const doNotHaveAnAccount= 'Don’t have an account?';
   static const ok= 'OK';
+  static const profileName= 'mohamed ali';
+  static const cancelRequest= 'Cancel Request';
+  static const foodTaken= 'Food Taken';
+
 }
