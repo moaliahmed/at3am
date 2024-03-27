@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         return Scaffold(
           body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 //Search bar
@@ -41,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                 FirebaseAnimatedList(
                   physics: NeverScrollableScrollPhysics(),
                     query: AppCubit.get(context).dbRef!,
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, snapshot, animation, index){
                       Map foodData = snapshot.value as Map;
@@ -48,7 +49,6 @@ class HomeScreen extends StatelessWidget {
                       return listCard(foodModel);
                     }
                 ),
-
 
                 //lisView get by firesotre database
                 // ListView.separated(
