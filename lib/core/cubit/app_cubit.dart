@@ -57,15 +57,32 @@ bool isDonations=true;
   }
 
 
-  Future getImage() async {
-    await ImagePicker()
-        .pickImage(source: ImageSource.camera)
-        .then((value) {
-     if (value!=null){
-       foodImage=File(value.path);
-       emit(PhotoLoadedState());
-     }
-    });
+  Future<void> getImage(context) async {
+    final ImageSource? source = await showDialog<ImageSource>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text("اختر المصدر"),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("الكاميرا"),
+            onPressed: () => Navigator.pop(context, ImageSource.camera),
+          ),
+          TextButton(
+            child: const Text("المعرض"),
+            onPressed: () => Navigator.pop(context, ImageSource.gallery),
+          ),
+        ],
+      ),
+    );
+
+    if (source != null) {
+      final pickedFile = await ImagePicker().pickImage(source: source);
+      if (pickedFile != null) {
+          foodImage = File(pickedFile.path);
+          emit(PhotoLoadedState());
+        // هنا يمكنك تحميل الصورة إلى الخدمة السحابية وحفظ الرابط إذا لزم الأمر
+      }
+    }
   }
   deleteImage(){
     foodImage=null;

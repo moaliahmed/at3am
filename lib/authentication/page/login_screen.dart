@@ -10,6 +10,7 @@ import '../component/button_component.dart';
 import '../component/text_form_field_component.dart';
 import '../controller/login_cubit/login_auth_cubit.dart';
 import 'forgot_password.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen();
@@ -149,6 +150,13 @@ class LoginScreen extends StatelessWidget {
                                 if (!formKey.currentState!.validate()) {
                                   return;
                                 }
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                    child:
+                                        Lottie.asset(ImageAssets.loadingImage),
+                                  ),
+                                );
                                 LoginAuthCubit.get(context).userLogin(
                                     email: emailEditingController.text,
                                     password: passwordEditingController.text);

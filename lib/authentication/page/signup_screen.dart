@@ -2,6 +2,7 @@ import 'package:at3am/authentication/page/login_screen.dart';
 import 'package:at3am/core/string_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/assets_manager.dart';
 import '../../core/color_manger.dart';
@@ -109,7 +110,7 @@ class SignUpScreen extends StatelessWidget {
                                 icons: Icons.lock_outline_rounded,
                                 textEditingController: passwordEditingController,
                                 validator: (value){
-                                  if (value == null || value.isEmpty) {
+                                  if (value == null || value.isEmpty||value.length<=6) {
                                     return "Password must be longer than 6 characters";
                                   }
                                   return null;
@@ -138,6 +139,9 @@ class SignUpScreen extends StatelessWidget {
                                   if (!formKey.currentState!.validate()) {
                                     return;
                                   }
+                                  showDialog(context: context,builder: (context) => Center(
+                                    child: Lottie.asset(ImageAssets.loadingImage),
+                                  ),);
                                   RegisterAuthCubit.get(context).userRegister(
                                       name: userNameEditingController.text,
                                       email: emailEditingController.text,

@@ -2,6 +2,7 @@ import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/core/color_manger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../core/string_manager.dart';
 import '../../home/component/text_form_field_component.dart';
@@ -24,6 +25,12 @@ class AddFoodScreen extends StatelessWidget {
     double myHeight = MediaQuery.of(context).size.height;
     return BlocConsumer<AppCubit, AppState>(
       listener: (context, state) {
+        if(state is CreateFoodLoadingState ){
+          showDialog(context: context, builder: (context) => Center(
+            child: Lottie.asset(ImageAssets.loadingImage),
+          ),);
+        }
+
         if (state is CreateFoodSuccessState){
           Navigator.pushAndRemoveUntil(
             context,
@@ -35,7 +42,6 @@ class AddFoodScreen extends StatelessWidget {
             },
           );
         }
-
       },
       builder: (context, state) {
         var cubit = AppCubit.get(context)..getCurrentLocation();
@@ -159,7 +165,7 @@ class AddFoodScreen extends StatelessWidget {
                   children: [
                     cubit.foodImage == null
                         ? InkWell(
-                            onTap: () => cubit.getImage(),
+                            onTap: () => cubit.getImage(context),
                             child: Container(
                               margin: EdgeInsets.all(8),
                               height: myHeight * .1,
