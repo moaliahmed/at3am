@@ -8,6 +8,7 @@ import '../../home/component/text_form_field_component.dart';
 import '../../core/cubit/app_cubit.dart';
 import '../../core/cubit/app_state.dart';
 import '../component/food_category.dart';
+import 'home_layout.dart';
 
 class AddFoodScreen extends StatelessWidget {
   AddFoodScreen({super.key});
@@ -22,7 +23,20 @@ class AddFoodScreen extends StatelessWidget {
     double myWidth = MediaQuery.of(context).size.width;
     double myHeight = MediaQuery.of(context).size.height;
     return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CreateFoodSuccessState){
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeLayout(),
+            ),
+                (route) {
+              return false;
+            },
+          );
+        }
+
+      },
       builder: (context, state) {
         var cubit = AppCubit.get(context)..getCurrentLocation();
         return Scaffold(
