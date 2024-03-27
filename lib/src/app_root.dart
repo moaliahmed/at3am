@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../authentication/page/signup_screen.dart';
 import '../authentication/page/splash_screen.dart';
+import '../home/page/food_taken.dart';
 
 class AppRoot extends StatelessWidget {
   const AppRoot({super.key});

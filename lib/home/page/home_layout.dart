@@ -19,7 +19,16 @@ class HomeLayout extends StatelessWidget {
       builder: (context, state) {
         var cubit = AppCubit.get(context);
         return Scaffold(
-          appBar: AppBar(),
+
+          appBar: AppBar(
+            backgroundColor: cubit.currentScreen == 0
+                ? ColorManager.white
+                : ColorManager.primary,
+            iconTheme: IconThemeData(
+                color: cubit.currentScreen == 0
+                    ? ColorManager.black
+                    : ColorManager.white),
+          ),
           body: cubit.screen[cubit.currentScreen],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: cubit.currentScreen,
@@ -70,8 +79,8 @@ class HomeLayout extends StatelessWidget {
                       ),
                       Text(
                         'mohamed ali',
-                        style: TextStyle(
-                            color: ColorManager.white, fontSize: 23),
+                        style:
+                            TextStyle(color: ColorManager.white, fontSize: 23),
                       )
                     ],
                   ),
@@ -88,8 +97,8 @@ class HomeLayout extends StatelessWidget {
                     ),
                     title: Text(
                       'home',
-                      style: TextStyle(
-                          color: ColorManager.primary, fontSize: 22),
+                      style:
+                          TextStyle(color: ColorManager.primary, fontSize: 22),
                     ),
                   ),
                 ),

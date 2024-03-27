@@ -18,6 +18,8 @@ class AppCubit extends Cubit<AppState> {
   AppCubit() : super(AppInitialState());
 
   static AppCubit get(context) => BlocProvider.of(context);
+
+  bool isDonations=true;
   int currentScreen = 0;
   int quantity = 6;
   String foodCategory = 'Grocery';
@@ -28,6 +30,12 @@ class AppCubit extends Cubit<AppState> {
     HomeScreen(),
     ProfileScreen(),
   ];
+
+  changeProfileList(){
+    isDonations=!isDonations;
+    print(isDonations);
+    emit(ChangeProfileListState());
+  }
 
   changeScreen(int index) {
     currentScreen = index;
@@ -45,52 +53,52 @@ class AppCubit extends Cubit<AppState> {
   }
 
   Future getImage() async {
-    await ImagePicker()
-        .pickImage(source: ImageSource.camera)
-        .then((value) {
-     if (value!=null){
-       photo=File(value.path);
-       emit(PhotoLoadedState());
-     }
+    await ImagePicker().pickImage(source: ImageSource.camera).then((value) {
+      if (value != null) {
+        photo = File(value.path);
+        emit(PhotoLoadedState());
+      }
     });
   }
-  deleteImage(){
-    photo=null;
+
+  deleteImage() {
+    photo = null;
     emit(DeleteImageState());
   }
+
   Future<Uint8List> getImageBytes(XFile image) async {
     final bytes = await image.readAsBytes();
     return bytes;
   }
 
-  getCurrentLocation()async{
-    bool serviceEnabled= await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled){
+  getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
       return Future.error('Location Service are disable');
     }
-    LocationPermission permission= await Geolocator.checkPermission();
-    if (permission==LocationPermission.denied){
-      permission= await Geolocator.requestPermission();
-      if ( permission==LocationPermission.denied){
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
         return Future.error('Location permission are denied');
       }
     }
-    if ( permission== LocationPermission.deniedForever){
-      return Future.error('Location permissions are permanently denied , we cannot request');
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied , we cannot request');
     }
-     await Geolocator.getCurrentPosition().then((value) {
-      lat=value.latitude;
-      long=value.longitude;
+    await Geolocator.getCurrentPosition().then((value) {
+      lat = value.latitude;
+      long = value.longitude;
       print(lat);
-      print (long);
+      print(long);
     });
   }
-openMap()async{
-    String googleUrl='https://www.google.com/maps/search/?api=1&query=$lat,$long';
 
-      await launchUrlString(googleUrl);
+  openMap() async {
+    String googleUrl =
+        'https://www.google.com/maps/search/?api=1&query=$lat,$long';
 
+    await launchUrlString(googleUrl);
+  }
 }
-
-}
-//https://www.google.com/maps/search/?api=1&query=30.2466921,31.3102143
