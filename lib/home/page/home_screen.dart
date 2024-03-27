@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         return Scaffold(
           body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            //physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 //Search bar

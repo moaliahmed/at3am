@@ -38,6 +38,7 @@ final class CreateFoodErrorState extends AppState {
 final class GetFoodLoadingState extends AppState {}
 
 final class GetFoodSuccessState extends AppState {}
+final class ChangeProfileListState extends AppState {}
 
 final class GetFoodErrorState extends AppState {
 final String? error;

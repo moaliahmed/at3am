@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppState> {
     HomeScreen(),
     ProfileScreen(),
   ];
-
+bool isDonations=true;
   changeScreen(int index) {
     currentScreen = index;
     emit(AppBottomNavBarChangeState());
@@ -50,6 +50,12 @@ class AppCubit extends Cubit<AppState> {
     quantity = value;
     emit(QuantitySliderChangeState());
   }
+
+  changeProfileList(){
+    isDonations=!isDonations;
+    emit(ChangeProfileListState());
+  }
+
 
   Future getImage() async {
     await ImagePicker()
