@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         return Scaffold(
           body: SingleChildScrollView(
-            //physics: BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 //Search bar
@@ -39,6 +39,7 @@ class HomeScreen extends StatelessWidget {
                 // Building Card List
 
                 FirebaseAnimatedList(
+                  physics: NeverScrollableScrollPhysics(),
                     query: AppCubit.get(context).dbRef!,
                     shrinkWrap: true,
                     itemBuilder: (context, snapshot, animation, index){
