@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import '../../core/color_manger.dart';
 
 class TextFormFieldComponent extends StatefulWidget {
-  const TextFormFieldComponent(
-      {super.key,
-      required this.textEditingController,
-      required this.title,
-      required this.icons,
-      this.hide = false});
-
+  const TextFormFieldComponent({
+    super.key,
+    required this.textEditingController,
+    required this.title,
+    required this.icons,
+    this.hide = false,
+    this.keyboardType=TextInputType.text,
+    required this.validator,
+    this.maxLength,
+  });
+  final String? Function(String?) validator;
   final TextEditingController textEditingController;
+  final TextInputType keyboardType;
   final String title;
   final IconData icons;
   final bool hide;
+  final int? maxLength;
 
   @override
   State<TextFormFieldComponent> createState() => _TextFormFieldComponentState();
@@ -32,6 +38,9 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: TextFormField(
+        maxLength:widget.maxLength ,
+        keyboardType: widget.keyboardType,
+        validator: widget.validator,
         controller: widget.textEditingController,
         style: const TextStyle(fontSize: 16),
         decoration: InputDecoration(
@@ -44,7 +53,8 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
                     // Based on passwordVisible state choose the icon
                     _passwordVisible
                         ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,color:  ColorManager.litePrimary,
+                        : Icons.visibility_off_outlined,
+                    color: ColorManager.litePrimary,
                   ),
                 )
               : const Text(''),
@@ -61,58 +71,3 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-//
-// class TextFormFieldComponent extends StatelessWidget {
-//   TextFormFieldComponent(
-//       {super.key,
-//         required this.controller,
-//         required this.type,
-//         required this.validate,
-//         required this.label,
-//         required this.prefix,
-//         this.isPassword = false,
-//         this.suffix,
-//         this.suffixPressed,
-//         this.isClickable = true,
-//       });
-//
-//   final TextEditingController controller;
-//   final TextInputType type;
-//   bool isPassword;
-//   final Function validate;
-//   final String label;
-//   final IconData prefix;
-//   IconData? suffix;
-//   VoidCallback? suffixPressed;
-//   final bool isClickable;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(12.0),
-//       child: TextFormField(
-//         controller: controller,
-//         keyboardType: type,
-//         obscureText: isPassword,
-//         style: const TextStyle(fontSize: 16),
-//         decoration: InputDecoration(
-//           labelText: label,
-//           prefixIcon: Icon(prefix),
-//           suffixIcon: suffix != null
-//               ? IconButton(
-//             onPressed: suffixPressed,
-//             icon: Icon(
-//               suffix,
-//             ),
-//           )
-//               : null,
-//           border: OutlineInputBorder(),
-//         ),
-//       ),
-//
-//     );
-//   }
-// }
-

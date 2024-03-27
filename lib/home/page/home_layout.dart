@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../authentication/page/login_screen.dart';
 import '../../core/assets_manager.dart';
 import '../../core/color_manger.dart';
 import '../../core/cubit/app_cubit.dart';
@@ -131,7 +133,13 @@ class HomeLayout extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: ()async {
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                          (Route<dynamic> route) => false,
+                    );
+                  },
                   child: ListTile(
                     leading: Icon(
                       Icons.logout_outlined,

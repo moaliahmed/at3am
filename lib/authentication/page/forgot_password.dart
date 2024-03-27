@@ -97,6 +97,14 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                               title: 'Email',
                               icons: Icons.email_outlined,
                               textEditingController: emailEditingController,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.isEmpty ||
+                                    !value.contains('@')) {
+                                  return 'الرجاء إدخال بريد إلكتروني صالح';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           ButtonComponent(title: 'Send', function: passwordReset),
