@@ -1,14 +1,16 @@
 import 'package:at3am/core/assets_manager.dart';
 import 'package:at3am/home/page/home_layout.dart';
 import 'package:at3am/home/page/home_screen.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../../core/color_manger.dart';
 import '../../core/string_manager.dart';
 import '../../models/food_model.dart';
 
-class FoodTaken extends StatelessWidget {
+class FoodTakenScreen extends StatelessWidget {
   FoodModel? foodModel;
-  FoodTaken({required this.foodModel});
+  String? keyFoodData;
+  FoodTakenScreen({required this.foodModel, required this.keyFoodData});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +82,18 @@ class FoodTaken extends StatelessWidget {
             ),
             SizedBox(height: myHeight*.03),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                FirebaseDatabase.instance.ref().child('foods').child(keyFoodData!).remove();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeLayout(),
+                  ),
+                      (route) {
+                    return false;
+                  },
+                );
+              },
               style: ButtonStyle(
                   backgroundColor:
                   MaterialStateProperty.all(ColorManager.primary)),

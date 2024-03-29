@@ -133,6 +133,8 @@ openMap()async{
   void getUserData()
   {
     emit(GetUserDataLoadingState());
+
+
     FirebaseFirestore.instance.collection('users').doc(uId).get().then((value) {
       userModel = UserModel.fromJson(value.data()!);
       emit(GetUserDataSuccessState(userModel: userModel!));

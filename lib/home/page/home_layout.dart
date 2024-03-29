@@ -1,3 +1,4 @@
+import 'package:at3am/home/page/about_us.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -117,14 +118,21 @@ class HomeLayout extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          const AboutUsScreen()),
+                    );
+                  },
                   child: ListTile(
                     leading: Icon(
                       Icons.info_outline,
                       // color: ColorManager.primary,
                     ),
                     title: Text(
-                      'About',
+                      'About Us',
                       style: TextStyle(
                         fontSize: 22,
                         //color: ColorManager.primary,

@@ -1,3 +1,5 @@
+import 'package:at3am/models/food_model.dart';
+
 class UserModel {
   String? name;
   String? email;

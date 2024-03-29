@@ -45,12 +45,12 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, snapshot, animation, index){
                       Map foodData = snapshot.value as Map;
+                      foodData['key'] = snapshot.key;
                       FoodModel foodModel = FoodModel.fromJson(foodData);
                       return GestureDetector(
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                RequestFoodScreen(foodModel: foodModel)
+                            builder: (context) => RequestFoodScreen(foodModel: foodModel, keyFoodData: foodData['key'])
                           ));
                         },
                           child: listCard(foodModel)

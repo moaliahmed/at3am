@@ -7,7 +7,9 @@ import '../../models/food_model.dart';
 import 'food_taken.dart';
 class RequestFoodScreen extends StatelessWidget {
   FoodModel foodModel;
-  RequestFoodScreen({required this.foodModel});
+  String keyFoodData;
+
+  RequestFoodScreen({required this.foodModel, required this.keyFoodData});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ class RequestFoodScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FoodTaken(foodModel: foodModel,),
+                      builder: (context) => FoodTakenScreen(foodModel: foodModel, keyFoodData: keyFoodData),
                     ),
                         (route) {
                       return false;
