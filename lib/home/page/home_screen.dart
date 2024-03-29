@@ -1,6 +1,7 @@
 import 'package:at3am/core/color_manger.dart';
 import 'package:at3am/core/cubit/app_cubit.dart';
 import 'package:at3am/core/cubit/app_state.dart';
+import 'package:at3am/home/page/request_food.dart';
 import 'package:at3am/models/food_model.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state){
         return Scaffold(
           body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 //Search bar
@@ -44,11 +45,18 @@ class HomeScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, snapshot, animation, index){
                       Map foodData = snapshot.value as Map;
+                      foodData['key'] = snapshot.key;
                       FoodModel foodModel = FoodModel.fromJson(foodData);
-                      return listCard(foodModel);
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => RequestFoodScreen(foodModel: foodModel, keyFoodData: foodData['key'])
+                          ));
+                        },
+                          child: listCard(foodModel)
+                      );
                     }
                 ),
-
 
                 //lisView get by firesotre database
                 // ListView.separated(
@@ -60,8 +68,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-
-
 
           floatingActionButton: FloatingActionButton(
             onPressed: () {

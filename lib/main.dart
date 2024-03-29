@@ -6,7 +6,6 @@ import 'package:at3am/src/app_root.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'cashe_helper.dart';
 import 'core/bloc_observer/bloc_observer.dart';

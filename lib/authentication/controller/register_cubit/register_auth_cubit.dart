@@ -1,6 +1,7 @@
- import 'package:at3am/authentication/controller/register_cubit/register_auth_state.dart';
+import 'package:at3am/authentication/controller/register_cubit/register_auth_state.dart';
 import 'package:at3am/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,6 +40,7 @@ class RegisterAuthCubit extends Cubit<RegisterAuthState> {
     required String uId
   }){
     UserModel userModel = UserModel(name: name, email: email, phone: phoneNumber, uId: uId);
+
     FirebaseFirestore.instance.collection('users')
         .doc(uId)
         .set(userModel.toMap())
